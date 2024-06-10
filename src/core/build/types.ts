@@ -175,6 +175,12 @@ declare module "nitropack/types" {
 
   const buildFiles: { path: string; contents: string }[] = [];
 
+    await nitro.hooks.callHook("prepare:types", {
+    references: buildFiles.map((f) => f.path),
+    declarations: declarations,
+    tsConfig: tsConfig,
+  });
+
   buildFiles.push({
     path: join(typesDir, "nitro-routes.d.ts"),
     contents: routes.join("\n"),

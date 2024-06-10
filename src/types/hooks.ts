@@ -6,6 +6,7 @@ import type { RollupConfig } from "./rollup";
 type HookResult = void | Promise<void>;
 
 export interface NitroHooks {
+  "prepare:types": (options: { references: TSReference[], declarations: string[], tsConfig: VueTSConfig }) => HookResult;
   "types:extend": (types: NitroTypes) => HookResult;
   "rollup:before": (nitro: Nitro, config: RollupConfig) => HookResult;
   compiled: (nitro: Nitro) => HookResult;
