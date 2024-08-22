@@ -163,9 +163,11 @@ declare module "nitropack/types" {
       : "",
     "",
     "interface NitroConfig {",
-    (nitro.options._resolvedModules ?? [])?.map((module) => {
-      return `  ["${module.configKey}"]: typeof import("${module._url}").default extends NitroModule<infer O> ? Partial<O> : Record<string, any>`;
-    }),
+    (nitro.options._resolvedModules ?? [])
+      .filter((module) => module.configKey)
+      .map((module) => {
+        return `  ["${module.configKey}"]: typeof import("${module._url}").default extends NitroModule<infer O> ? Partial<O> : Record<string, any>`;
+      }),
     "}",
     `}`,
     // Makes this a module for augmentation purposes
